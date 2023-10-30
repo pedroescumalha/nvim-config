@@ -13,6 +13,15 @@ end)
 
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
+require('lspconfig').tsserver.setup({
+  init_options = {
+    preferences = {
+      importModuleSpecifierPreference = 'relative',
+      importModuleSpecifierEnding = 'minimal',
+    },
+  }
+})
+
 lsp.setup()
 
 -- Diagnostics. 
