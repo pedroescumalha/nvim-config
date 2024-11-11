@@ -1,7 +1,7 @@
 local lsp = require('lsp-zero').preset({})
 
 lsp.ensure_installed({
-    'tsserver',
+    'ts_ls',
     'lua_ls',
     'eslint',
     'prismals'
@@ -13,7 +13,7 @@ end)
 
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
-require('lspconfig').tsserver.setup({
+require('lspconfig').ts_ls.setup({
   init_options = {
     preferences = {
       importModuleSpecifierPreference = 'relative',
@@ -21,6 +21,8 @@ require('lspconfig').tsserver.setup({
     },
   }
 })
+
+require('lspconfig').gleam.setup({})
 
 lsp.setup()
 
@@ -36,7 +38,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     -- Buffer local mappings.
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gD', ':vsplit | lua vim.lsp.buf.definition()<CR>', opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)

@@ -32,7 +32,7 @@ vim.keymap.set("n", "<leader>y", '"+y')
 vim.keymap.set("v", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>yy", '"+yy')
 
--- Auto close braces
+--  Auto close braces
 vim.keymap.set("i", "{", "{}<Esc>ha")
 vim.keymap.set("i", '"', '""<Esc>ha')
 vim.keymap.set("i", "'", "''<Esc>ha")
