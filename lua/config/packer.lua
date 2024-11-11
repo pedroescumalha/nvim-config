@@ -1,56 +1,36 @@
-local ensure_packer = function()
+local ensure_lazy = function()
   local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/lazy/start/lazy.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    print("installing packer")
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
+    print("installing lazy")
+    fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", "https://github.com/folke/lazy.nvim.git", install_path })
+    vim.cmd [[packadd lazy.nvim]]
     return true
   end
   return false
 end
 
-local packer_bootstrap = ensure_packer()
+ensure_lazy()
 
-return require('packer').startup(function(use)
-	use 'wbthomason/packer.nvim'
-	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.4',
-		requires = { {'nvim-lua/plenary.nvim'} }
-	}
-
-	use {
-		'EdenEast/nightfox.nvim',
-		as = 'nightfox',
-		config = function()
-			vim.cmd('colorscheme nightfox')
-		end
-	}
-
-	use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-
-	use {
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v2.x',
-		requires = {
-			-- LSP Support
-			{'neovim/nvim-lspconfig'},             -- Required
-			{                                      -- Optional
-			'williamboman/mason.nvim',
-			run = function()
-				pcall(vim.cmd, 'MasonUpdate')
-			end,
-		},
-		{'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-		-- Autocompletion
-		{'hrsh7th/nvim-cmp'},     -- Required
-		{'hrsh7th/cmp-nvim-lsp'}, -- Required
-		{'L3MON4D3/LuaSnip'},     -- Required
-	}
-}
-
-if packer_bootstrap then
-	require('packer').sync()
-end
-end)
+return require("lazy").setup({
+    spec = {
+        { 'nvim-telescope/telescope.nvim', tag = '0.1.8', dependencies = { 'nvim-lua/plenary.nvim' } },
+        { 'EdenEast/nightfox.nvim' },
+        { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+	    {
+		    'VonHeikemen/lsp-zero.nvim',
+		    branch = 'v2.x',
+		    dependencies = {
+		    	{'neovim/nvim-lspconfig'},
+                {'williamboman/mason.nvim', build = ':MasonUpdate'},
+                {'williamboman/mason-lspconfig.nvim'},
+		        {'hrsh7th/nvim-cmp'},
+		        {'hrsh7th/cmp-nvim-lsp'},
+		        {'L3MON4D3/LuaSnip'},
+            }
+	    },
+        { 'github/copilot.vim' },
+        { 'akinsho/git-conflict.nvim' },
+    },
+    checker = { enabled = true },
+})
