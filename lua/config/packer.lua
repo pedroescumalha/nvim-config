@@ -35,7 +35,7 @@ return require("lazy").setup({
             }
 	    },
         { 'github/copilot.vim' },
-        { 'akinsho/git-conflict.nvim' },
+        { 'akinsho/git-conflict.nvim', version = "*", config = true }
     },
     checker = { enabled = true },
 })
