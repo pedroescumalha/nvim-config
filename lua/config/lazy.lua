@@ -34,6 +34,7 @@ return require("lazy").setup({
 		        {'L3MON4D3/LuaSnip'},
             }
 	    },
+        { 'tpope/vim-fugitive' },
         { 'github/copilot.vim' },
         { 'akinsho/git-conflict.nvim', version = "*", config = true }
     },
