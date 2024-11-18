@@ -4,7 +4,12 @@ lsp.ensure_installed({
     'ts_ls',
     'lua_ls',
     'eslint',
-    'prismals'
+    'prismals',
+    'sqlls',
+    'jsonls',
+    'bashls',
+    'cssls',
+    'html',
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -21,8 +26,6 @@ require('lspconfig').ts_ls.setup({
     },
   }
 })
-
-require('lspconfig').gleam.setup({})
 
 lsp.setup()
 
