@@ -110,35 +110,3 @@ if ! brew list warp &>/dev/null; then
 else
   echo "Warp Terminal is already installed."
 fi
-
-# Add Warp Terminal to the Dock
-APP_PATH="/Applications/Warp.app"
-if [ -d "$APP_PATH" ]; then
-  echo "Adding Warp Terminal to the Dock..."
-  osascript <<EOF
-tell application "System Events"
-  set dockApps to name of every application process whose bundle identifier is "com.apple.dock"
-  set appExists to false
-  repeat with dockItem in dockApps
-    if dockItem is "Warp" then
-      set appExists to true
-    end if
-  end repeat
-  if not appExists then
-    tell application "Dock"
-      quit
-    end tell
-    delay 1
-    tell application "System Events" to make new dock item at end of dock items with properties {path:"$APP_PATH"}
-    tell application "Dock"
-      launch
-    end tell
-  else
-    display notification "Warp is already in the Dock." with title "Dock Update"
-  end if
-end tell
-EOF
-else
-  echo "Warp Terminal is not installed in /Applications. Skipping Dock addition."
-fi
-
