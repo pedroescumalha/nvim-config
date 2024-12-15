@@ -1,35 +1,15 @@
-local lsp = require('lsp-zero').preset({})
+vim.opt.signcolumn = 'yes'
 
-lsp.ensure_installed({
-    'ts_ls',
-    'lua_ls',
-    'eslint',
-    'prismals',
-    'sqlls',
-    'jsonls',
-    'bashls',
-    'cssls',
-    'html',
-})
+local lsp = require('lspconfig')
+local lspconfig_defaults = lsp.util.default_config
 
-lsp.on_attach(function(client, bufnr)
-  lsp.default_keymaps({buffer = bufnr})
-end)
+lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+  'force',
+  lspconfig_defaults.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
+)
 
-require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-
-require('lspconfig').ts_ls.setup({
-  init_options = {
-    preferences = {
-      importModuleSpecifierPreference = 'relative',
-      importModuleSpecifierEnding = 'minimal',
-    },
-  }
-})
-
-lsp.setup()
-
--- Diagnostics. 
+-- diagnostics
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
@@ -48,8 +28,32 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
+    vim.keymap.set('n', '<leader>fm', function()
       vim.lsp.buf.format { async = true }
     end, opts)
   end,
+})
+
+-- setup mason to work with lspconfig
+require("mason").setup({})
+require('mason-lspconfig').setup({
+  handlers = {
+    function(server_name)
+      require('lspconfig')[server_name].setup({})
+    end,
+  },
+})
+
+local cmp = require('cmp')
+
+cmp.setup({
+  sources = {
+    {name = 'nvim_lsp'},
+  },
+  snippet = {
+    expand = function(args)
+      vim.snippet.expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({}),
 })
