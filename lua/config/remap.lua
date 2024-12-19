@@ -3,7 +3,6 @@ vim.keymap.set("n", "<leader>ex", function ()
     require("oil").toggle_float("")
 end)
 
-
 -- Tabs
 vim.keymap.set("n", "<leader>to", ":tabnew<Enter>")
 vim.keymap.set("n", "<leader>tc", ":tabclose<Enter>")
@@ -35,11 +34,3 @@ vim.keymap.set("v", "<leader>P", '"+P')
 vim.keymap.set("n", "<leader>y", '"+y')
 vim.keymap.set("v", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>yy", '"+yy')
-
---  Auto close braces
-vim.keymap.set("i", "{", "{}<Esc>ha")
-vim.keymap.set("i", '"', '""<Esc>ha')
-vim.keymap.set("i", "'", "''<Esc>ha")
-vim.keymap.set("i", "[", "[]<Esc>ha")
-vim.keymap.set("i", "(", "()<Esc>ha")
-vim.keymap.set("i", "`", "``<Esc>ha")

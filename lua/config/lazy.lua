@@ -30,6 +30,7 @@ return require("lazy").setup({
             "hrsh7th/cmp-nvim-lsp",
         },
         { 'tpope/vim-fugitive' },
+        { 'tpope/vim-surround' },
         { 'github/copilot.vim' },
         { 'akinsho/git-conflict.nvim', version = "*", config = true },
         {
