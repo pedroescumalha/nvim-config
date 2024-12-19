@@ -31,7 +31,16 @@ return require("lazy").setup({
         },
         { 'tpope/vim-fugitive' },
         { 'github/copilot.vim' },
-        { 'akinsho/git-conflict.nvim', version = "*", config = true }
+        { 'akinsho/git-conflict.nvim', version = "*", config = true },
+        {
+            'stevearc/oil.nvim',
+            opts = {
+                skip_confirm_for_simple_edits = true,
+                view_options = {
+                    show_hidden = true,
+                },
+            }
+        }
     },
     checker = { enabled = true },
 })
