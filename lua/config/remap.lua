@@ -1,7 +1,5 @@
 -- File navigation
-vim.keymap.set("n", "<leader>ex", function ()
-    require("oil").toggle_float("")
-end)
+vim.keymap.set("n", "<leader>ex", require("oil").open)
 
 -- Tabs
 vim.keymap.set("n", "<leader>to", ":tabnew<Enter>")
