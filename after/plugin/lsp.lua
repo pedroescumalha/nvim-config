@@ -35,14 +35,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- setup mason to work with lspconfig
-require("mason").setup({})
-require('mason-lspconfig').setup({
-  handlers = {
-    function(server_name)
-      require('lspconfig')[server_name].setup({})
-    end,
-  },
-})
+require("mason").setup()
+require("mason-lspconfig").setup()
 
 local cmp = require('cmp')
 

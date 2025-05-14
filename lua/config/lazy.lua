@@ -48,7 +48,7 @@ return require("lazy").setup({
                     show_hidden = true,
                 },
             }
-        }
+        },
     },
     checker = { enabled = true },
 })
