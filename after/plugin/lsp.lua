@@ -1,13 +1,9 @@
 vim.opt.signcolumn = 'yes'
 
-local lsp = require('lspconfig')
-local lspconfig_defaults = lsp.util.default_config
-
-lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-  'force',
-  lspconfig_defaults.capabilities,
-  require('cmp_nvim_lsp').default_capabilities()
-)
+-- Set default capabilities for all LSP servers
+vim.lsp.config('*', {
+  capabilities = require('cmp_nvim_lsp').default_capabilities()
+})
 
 -- diagnostics
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
