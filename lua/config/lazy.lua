@@ -24,7 +24,6 @@ return require("lazy").setup({
 		        vim.cmd('colorscheme github_dark_high_contrast')
 		    end
         },
-        { 'nvim-treesitter/nvim-treesitter', branch = 'master', build = ':TSUpdate' },
         {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
