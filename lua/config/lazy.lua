@@ -31,6 +31,11 @@ return require("lazy").setup({
             "hrsh7th/nvim-cmp",
             "hrsh7th/cmp-nvim-lsp",
         },
+        {
+            "folke/lazydev.nvim",
+            ft = "lua",
+            opts = {},
+        },
         { 'tpope/vim-fugitive' },
         { 'tpope/vim-surround' },
         { 'github/copilot.vim' },
